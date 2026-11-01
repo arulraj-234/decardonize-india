@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decarbonize India - National Clean Energy Benchmark & Machine Learning Forecaster</title>
+  <meta name="description" content="Decarbonize India: Official Government of India energy transition intelligence, relational database, and leakage-free machine learning policy forecasting suite.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" href="/favicon.svg">
+  
+  <!-- Google Fonts: Playfair Display & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+  <div class="site-wrapper">
+    
+    <!-- =====================================================================
+         1. HERO SECTION (REFERENCE IMAGE 1)
+         ===================================================================== -->
+    <header class="hero-frame" id="top">
+      <!-- Top Navigation -->
+      <nav class="hero-nav" aria-label="Main Navigation">
+        <div class="hero-nav-left">
+          <a href="#top" class="brand-title">
+            <span class="brand-line-1">DECARBONIZE</span>
+            <span class="brand-line-2">INDIA</span>
+          </a>
+        </div>
+        
+        <div class="hero-nav-center">
+          <div class="nav-pill-group">
+            <a href="#section-impact" class="nav-pill-link" onclick="scrollToSection('section-impact')">Indicators</a>
+            <a href="#section-methodology" class="nav-pill-link" onclick="scrollToSection('section-methodology')">Methodology</a>
+            <a href="#analytics-section" class="nav-pill-link" onclick="switchMainTab('states')">State Matrix</a>
+            <a href="#analytics-section" class="nav-pill-link" onclick="switchMainTab('simulation')">Forecaster</a>
+            <a href="#analytics-section" class="nav-pill-link" onclick="switchMainTab('transition')">Transition</a>
+            <a href="#analytics-section" class="nav-pill-link" onclick="switchMainTab('audit')">Forensic Audit</a>
+            <a href="#analytics-section" class="nav-pill-link" onclick="switchMainTab('database')">SQL Catalog</a>
+          </div>
+        </div>
+
+        <div class="hero-nav-right">
+          <div class="benchmark-title">
+            <span class="benchmark-line-1">MOSPI BENCHMARK</span>
+            <span class="benchmark-line-2">(2026)</span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Center Hero Content -->
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Redefining India's Energy Transition For A Low-Carbon Future
+        </h1>
+        
+        <div class="hero-cta-wrapper">
+          <a href="#analytics-section" class="hero-btn-primary" onclick="switchMainTab('simulation')">
+            <span>Explore Forecasting Intelligence</span>
+          </a>
+          <div class="connecting-line"></div>
+        </div>
+      </div>
+
+      <!-- Hero Footer -->
+      <div class="hero-footer">
+        <div class="hero-source-note">
+          Official extraction from MoSPI <em>Energy Statistics India</em>. Relational tables, analytical SQL views, and leak-free econometric scenario projections.
+        </div>
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================================
+         2. SECTION: IMPACT & KEY INDICATORS (REFERENCE IMAGE 2)
+         ===================================================================== -->
+    <section class="impact-section" id="section-impact">
+      <div class="section-watermark">###</div>
+      <div class="section-watermark-right">###</div>
+
+      <div class="impact-header-row">
+        <div>
+          <div class="section-kicker">National Decarbonization Pulse</div>
+          <h2 class="section-title-large">The Scale & Trajectory of India's Clean Energy Expansion</h2>
+        </div>
+        <div class="section-desc-right">
+          Monitoring the transition away from fossil fuel dependency through verified empirical metrics from the FY 2024-25 fiscal period (MoSPI Energy Statistics 2026).
+        </div>
+      </div>
+
+      <div class="impact-cards-grid">
+        
+        <!-- Photographic Card -->
+        <div class="impact-card col-image-card">
+          <img src="/static/assets/clean_energy.jpg" alt="Utility scale solar and wind renewable generation in India" loading="lazy">
+        </div>
+
+        <!-- Metric 1: Clean Generation Share -->
+        <div class="impact-card col-stat-1">
+          <div class="impact-card-label">
+            <span class="pill-dot pill-dot-green"></span>
+            Non-Fossil Utility Generation Share
+          </div>
+          <div class="solid-stat-num impact-card-num" id="hero-stat-nonfossil">25.1%</div>
+          <p class="impact-card-text">
+            Clean electricity generation (Hydro, Nuclear, Solar, and Wind) reached <strong>458,000 GWh</strong> in FY 2024-25, advancing towards India's long-term decarbonization targets.
+          </p>
+        </div>
+
+        <!-- Metric 2: Gross Generation -->
+        <div class="impact-card col-stat-2">
+          <div class="impact-card-label">Gross Utility Generation</div>
+          <div class="solid-stat-num impact-card-num" id="hero-stat-generation">1,821 TWh</div>
+          <p class="impact-card-text">
+            Total annual generation grew by <strong>+5.0% year-on-year</strong>, serving expanding industrial, commercial, and urban electrification demands across 38 states &amp; UTs.
+          </p>
+        </div>
+
+        <!-- Metric 3: Clean Energy Runway -->
+        <div class="impact-card col-stat-3">
+          <div class="impact-card-label">Renewable Installed Capacity</div>
+          <div class="solid-stat-num impact-card-num" id="hero-stat-res">220.1 GW</div>
+          <p class="impact-card-text">
+            Cumulative installed renewable capacity reached <strong>220,074 MW (220.1 GW)</strong> as of FY 2024-25, led by solar and wind corridors in Rajasthan and Gujarat.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         3. SECTION: THREE-STAGE METHODOLOGY (REFERENCE IMAGE 3)
+         ===================================================================== -->
+    <section class="methodology-section" id="section-methodology">
+      <div class="methodology-banner">
+        
+        <div class="methodology-top">
+          <div class="methodology-title">Match Energy Forecasts to Empirical Evidence</div>
+          <a href="#analytics-section" class="btn-pill-ghost" onclick="switchMainTab('audit')">
+            <span>Inspect Methodology Audit</span>
+            <span class="pill-dot" style="background:#fff;"></span>
+          </a>
+        </div>
+
+        <div class="methodology-grid">
+          
+          <div class="step-card">
+            <span class="solid-header-num step-header">Step 1</span>
+            <h3 class="step-title">Official MoSPI Ingestion</h3>
+            <p class="step-desc">
+              Automated high-precision extraction from government PDFs into an ACID-compliant SQLite relational database with 22 structured tables and 5 pre-compiled views.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <span class="solid-header-num step-header">Step 2</span>
+            <h3 class="step-title">Forensic Leakage Elimination</h3>
+            <p class="step-desc">
+              Identification and isolation of contemporaneous lookahead bias. Eliminates artificial 99.9% oracle models in favor of honest, real-world lagged macroeconomic estimators.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <span class="solid-header-num step-header">Step 3</span>
+            <h3 class="step-title">Dynamic Policy Simulation</h3>
+            <p class="step-desc">
+              Real-time scenario testing with interactive GDP and population growth elasticities, delivering 2030 demand trajectories and statistical confidence envelopes.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         4. ANALYTICS & INTERACTIVE PLATFORM WORKSPACE
+         ===================================================================== -->
+    <section class="analytics-workspace" id="analytics-section">
+      
+      <!-- Navigation Pills Bar -->
+      <nav class="analytics-nav-bar" role="tablist">
+        <button class="section-pill-btn active" id="btn-tab-states" onclick="switchMainTab('states')">
+          State Renewable Matrix
+        </button>
+        <button class="section-pill-btn" id="btn-tab-simulation" onclick="switchMainTab('simulation')">
+          Live Policy Forecaster
+        </button>
+        <button class="section-pill-btn" id="btn-tab-transition" onclick="switchMainTab('transition')">
+          Clean Power Transition
+        </button>
+        <button class="section-pill-btn" id="btn-tab-overview" onclick="switchMainTab('overview')">
+          Primary Energy Supply
+        </button>
+        <button class="section-pill-btn" id="btn-tab-sectors" onclick="switchMainTab('sectors')">
+          Sectoral Consumption
+        </button>
+        <button class="section-pill-btn" id="btn-tab-audit" onclick="switchMainTab('audit')">
+          Forensic Leakage Audit
+        </button>
+        <button class="section-pill-btn" id="btn-tab-database" onclick="switchMainTab('database')">
+          SQL Catalog
+        </button>
+      </nav>
+
+      <!-- ===================================================================
+           TAB: STATE RENEWABLE MATRIX (CLEAN, MODERN, USER-FRIENDLY)
+           =================================================================== -->
+      <div class="tab-pane active" id="pane-states">
+        
+        <!-- Top 5 State Summary Cards -->
+        <div class="state-hero-summary">
+          <div class="state-chip-card" onclick="filterStateQuick('Rajasthan')">
+            <div class="state-chip-rank">Rank 01 • Solar Leader</div>
+            <div class="state-chip-name">Rajasthan</div>
+            <div class="state-chip-val">40,901 MW Total</div>
+            <div class="state-chip-sub">Solar: 27,567 MW (+19.2% YoY)</div>
+          </div>
+
+          <div class="state-chip-card" onclick="filterStateQuick('Gujarat')">
+            <div class="state-chip-rank">Rank 02 • Wind Leader</div>
+            <div class="state-chip-name">Gujarat</div>
+            <div class="state-chip-val">39,030 MW Total</div>
+            <div class="state-chip-sub">Wind: 12,784 MW (+31.1% YoY)</div>
+          </div>
+
+          <div class="state-chip-card" onclick="filterStateQuick('Tamil')">
+            <div class="state-chip-rank">Rank 03 • Balanced Hub</div>
+            <div class="state-chip-name">Tamil Nadu</div>
+            <div class="state-chip-val">30,619 MW Total</div>
+            <div class="state-chip-sub">Wind: 10,924 MW (+11.5% YoY)</div>
+          </div>
+
+          <div class="state-chip-card" onclick="filterStateQuick('Karnataka')">
+            <div class="state-chip-rank">Rank 04 • Southern Grid</div>
+            <div class="state-chip-name">Karnataka</div>
+            <div class="state-chip-val">27,203 MW Total</div>
+            <div class="state-chip-sub">Solar: 13,099 MW (+6.2% YoY)</div>
+          </div>
+
+          <div class="state-chip-card" onclick="filterStateQuick('Maharashtra')">
+            <div class="state-chip-rank">Rank 05 • Industrial Western</div>
+            <div class="state-chip-name">Maharashtra</div>
+            <div class="state-chip-val">22,192 MW Total</div>
+            <div class="state-chip-sub">Solar: 9,581 MW (+13.5% YoY)</div>
+          </div>
+        </div>
+
+        <!-- Top 10 Comparison Chart -->
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Top 10 Indian States by Installed Clean Energy (MW)</h2>
+              <p class="clean-card-desc">Comparative breakdown of Solar, Wind, Small Hydro, and Bio-Power capacity across leading states in 2024</p>
+            </div>
+            <div class="badge-tag-clean badge-growth">Official MoSPI Table 2.5</div>
+          </div>
+          <div style="height: 320px; position: relative;">
+            <canvas id="chart-top-states"></canvas>
+          </div>
+        </div>
+
+        <!-- Comprehensive Clean State Table -->
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">National Renewable Energy Registry</h2>
+              <p class="clean-card-desc">Official installed capacity metrics across all 36 Indian States and Union Territories</p>
+            </div>
+            <div id="state-table-count" style="font-size: 13px; font-weight: 600; color: var(--pine-700);">
+              Showing 36 of 36 States & UTs
+            </div>
+          </div>
+
+          <!-- Table Controls Row -->
+          <div class="table-controls-row">
+            <div class="search-input-wrapper">
+              <input type="text" id="state-search-input" class="search-input" placeholder="Search state or union territory (e.g. Gujarat, Punjab)..." onkeyup="filterStateTableClean()">
+            </div>
+            <div class="filter-pill-group">
+              <button class="filter-chip active" id="filter-all" onclick="setTableFilterCategory('all')">All States</button>
+              <button class="filter-chip" id="filter-top10" onclick="setTableFilterCategory('top10')">Top 10 Leaders</button>
+              <button class="filter-chip" id="filter-solar" onclick="setTableFilterCategory('solar')">Solar Dominant (>4,000 MW)</button>
+              <button class="filter-chip" id="filter-wind" onclick="setTableFilterCategory('wind')">Wind Corridors (>2,000 MW)</button>
+            </div>
+          </div>
+
+          <div class="clean-table-responsive">
+            <table class="clean-table" id="table-states">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>State / Union Territory</th>
+                  <th>Solar (MW)</th>
+                  <th>Wind (MW)</th>
+                  <th>Small Hydro (MW)</th>
+                  <th>Bio-Power (MW)</th>
+                  <th>Total RES Capacity (MW)</th>
+                  <th>Annual Growth</th>
+                </tr>
+              </thead>
+              <tbody id="table-states-body">
+                <tr><td colspan="8" style="text-align:center; padding: 30px;">Loading official state registry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: LIVE ML DEMAND SIMULATOR
+           =================================================================== -->
+      <div class="tab-pane" id="pane-simulation">
+        <div class="forecaster-layout">
+          
+          <!-- Controls Column -->
+          <div class="forecaster-controls">
+            <div>
+              <h3 class="clean-card-title" style="font-size: 18px;">Simulation Parameters</h3>
+              <p class="clean-card-desc">Stress-test electricity demand under macroeconomic growth assumptions</p>
+            </div>
+
+            <!-- Quick Preset Buttons -->
+            <div class="control-item">
+              <span class="control-title">Macroeconomic Presets</span>
+              <div class="preset-btn-row">
+                <button class="preset-btn" onclick="applyMacroPreset(5.2, 0.7, 6)">Conservative (5.2%)</button>
+                <button class="preset-btn active" id="preset-base" onclick="applyMacroPreset(6.5, 0.8, 6)">Base Case (6.5%)</button>
+                <button class="preset-btn" onclick="applyMacroPreset(8.0, 0.9, 6)">High Growth (8.0%)</button>
+              </div>
+            </div>
+
+            <!-- GDP Growth Slider -->
+            <div class="control-item">
+              <div class="control-label-flex">
+                <span class="control-title">Annual Real GDP Growth Rate</span>
+                <span class="val-pill" id="val-slider-gdp">6.5%</span>
+              </div>
+              <input type="range" class="clean-slider" id="slider-gdp" min="4.0" max="9.0" step="0.1" value="6.5" oninput="updateSimulation()">
+              <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-light-muted);">
+                <span>4.0% Sluggish</span>
+                <span>6.5% Historical</span>
+                <span>9.0% High Boom</span>
+              </div>
+            </div>
+
+            <!-- Population Growth Slider -->
+            <div class="control-item">
+              <div class="control-label-flex">
+                <span class="control-title">Population Growth Rate</span>
+                <span class="val-pill" id="val-slider-pop">0.8%</span>
+              </div>
+              <input type="range" class="clean-slider" id="slider-pop" min="0.4" max="1.4" step="0.1" value="0.8" oninput="updateSimulation()">
+            </div>
+
+            <!-- Forecast Horizon Slider -->
+            <div class="control-item">
+              <div class="control-label-flex">
+                <span class="control-title">Projection Horizon</span>
+                <span class="val-pill" id="val-slider-horizon">6 Years</span>
+              </div>
+              <input type="range" class="clean-slider" id="slider-horizon" min="3" max="11" step="1" value="6" oninput="updateSimulation()">
+            </div>
+
+            <!-- Forecasting Engine Selector -->
+            <div class="control-item">
+              <label class="control-title" for="select-model-family">Forecasting Architecture</label>
+              <select class="clean-select" id="select-model-family" onchange="updateSimulation()">
+                <option value="holt_multiplicative" selected>Holt Multiplicative (Pure Time-Series, 96.0% Honest Accuracy)</option>
+                <option value="lagged_macro">Lagged Ridge Econometric (GDP[t-1], 94.8% Honest Accuracy)</option>
+                <option value="two_stage">Two-Stage GDP Elasticity (96.6% Honest Accuracy)</option>
+              </select>
+            </div>
+
+            <!-- Simulation Summary Grid -->
+            <div class="sim-output-grid">
+              <div class="sim-output-box">
+                <span class="sim-output-label">Projected Demand</span>
+                <span class="sim-output-val" id="sim-final-demand">-- TWh</span>
+              </div>
+              <div class="sim-output-box">
+                <span class="sim-output-label">Demand Expansion</span>
+                <span class="sim-output-val" id="sim-expansion-pct" style="color: var(--pine-600);">--%</span>
+              </div>
+              <div class="sim-output-box">
+                <span class="sim-output-label">Annual CAGR</span>
+                <span class="sim-output-val" id="sim-cagr-pct">--%</span>
+              </div>
+              <div class="sim-output-box">
+                <span class="sim-output-label">Clean Needed</span>
+                <span class="sim-output-val" id="sim-clean-needed" style="color: var(--emerald-accent);">-- TWh</span>
+              </div>
+            </div>
+
+            <button class="btn-simulate-refresh" onclick="updateSimulation(true)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+              <span>Recalculate Projections</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Chart Area -->
+          <div class="clean-card" style="margin-bottom:0;">
+            <div class="clean-card-header">
+              <div>
+                <h2 class="clean-card-title">National Electricity Demand Trajectory (GWh)</h2>
+                <p class="clean-card-desc">Real-time simulation trajectory with ±3.8% econometric confidence intervals</p>
+              </div>
+              <span class="badge-tag-clean badge-growth" id="badge-sim-status">Dynamic Inference Active</span>
+            </div>
+            <div style="height: 440px; position: relative;">
+              <canvas id="chart-simulation"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: CLEAN POWER TRANSITION
+           =================================================================== -->
+      <div class="tab-pane" id="pane-transition">
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Power Sector Decarbonization: Fossil vs Non-Fossil Generation (GWh)</h2>
+              <p class="clean-card-desc">10-year transition trajectory of Thermal versus Hydro, Nuclear, and Renewable Energy generation</p>
+            </div>
+            <span class="badge-tag-clean badge-growth">v_electricity_transition</span>
+          </div>
+          <div style="height: 420px; position: relative;">
+            <canvas id="chart-transition"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: PRIMARY ENERGY SUPPLY
+           =================================================================== -->
+      <div class="tab-pane" id="pane-overview">
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Primary Energy Production Mix by Fuel Type (Petajoules)</h2>
+              <p class="clean-card-desc">Historical trajectory of Coal, Lignite, Crude Oil, Natural Gas, and Primary Clean Electricity</p>
+            </div>
+            <span class="badge-tag-clean badge-growth">v_primary_energy_production_mix</span>
+          </div>
+          <div style="height: 420px; position: relative;">
+            <canvas id="chart-primary-mix"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: SECTORAL CONSUMPTION
+           =================================================================== -->
+      <div class="tab-pane" id="pane-sectors">
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Sectoral Electricity Consumption Breakdown (GWh)</h2>
+              <p class="clean-card-desc">Demand distribution across Industrial, Domestic Residential, Agricultural, Commercial, and Railway Traction loads</p>
+            </div>
+            <span class="badge-tag-clean badge-growth">v_electricity_consumption_sector_shares</span>
+          </div>
+          <div style="height: 420px; position: relative;">
+            <canvas id="chart-sectors"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: FORENSIC AUDIT & LEAKAGE CHECK
+           =================================================================== -->
+      <div class="tab-pane" id="pane-audit">
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Forensic Audit: Exposing Lookahead Leakage</h2>
+              <p class="clean-card-desc">Audited benchmark verifying why 99.9% accuracy models were deceptive oracle cheats versus realistic leak-free models</p>
+            </div>
+            <span class="badge-tag-clean badge-growth">Audited & Verified</span>
+          </div>
+          
+          <div class="clean-table-responsive">
+            <table class="clean-table" id="table-audit">
+              <thead>
+                <tr>
+                  <th>Forecasting Paradigm</th>
+                  <th>Model Architecture</th>
+                  <th>Features Used</th>
+                  <th>Audit Status</th>
+                  <th>Test Accuracy (%)</th>
+                  <th>Test MAPE (%)</th>
+                  <th>Holdout Error (GWh)</th>
+                </tr>
+              </thead>
+              <tbody id="table-audit-body">
+                <tr><td colspan="7" style="text-align:center; padding: 30px;">Loading audit benchmark...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Hyperparameter Optimization & Fine-Tuning Performance</h2>
+              <p class="clean-card-desc">Before-vs-after accuracy benchmarks across time-series state-space orders and regularization penalties</p>
+            </div>
+          </div>
+          <div class="clean-table-responsive">
+            <table class="clean-table" id="table-finetune">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Baseline Configuration</th>
+                  <th>Fine-Tuned Configuration</th>
+                  <th>Val Accuracy Before</th>
+                  <th>Val Accuracy After</th>
+                  <th>Test Accuracy Before</th>
+                  <th>Test Accuracy After</th>
+                </tr>
+              </thead>
+              <tbody id="table-finetune-body">
+                <tr><td colspan="7" style="text-align:center; padding: 30px;">Loading fine-tuning benchmarks...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===================================================================
+           TAB: RELATIONAL SQL DATA CATALOG
+           =================================================================== -->
+      <div class="tab-pane" id="pane-database">
+        <div class="clean-card">
+          <div class="clean-card-header">
+            <div>
+              <h2 class="clean-card-title">Relational Database Catalog & CSV Exports</h2>
+              <p class="clean-card-desc">24 standalone relational tables and 5 analytical SQL views extracted from MoSPI Energy Statistics India 2026</p>
+            </div>
+            <a href="/data/csv/electricity_generation_utilities.csv" class="badge-tag-clean badge-growth" download style="text-decoration:none;">
+              Download Primary Datasets
+            </a>
+          </div>
+
+          <div class="clean-table-responsive">
+            <table class="clean-table" id="table-catalog">
+              <thead>
+                <tr>
+                  <th>Table / View Name</th>
+                  <th>Category</th>
+                  <th>Rows</th>
+                  <th>Description</th>
+                  <th>Primary Key</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="table-catalog-body">
+                <tr><td colspan="6" style="text-align:center; padding: 30px;">Loading relational catalog...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================================
+         5. FOOTER (REFERENCE IMAGE 4)
+         ===================================================================== -->
+    <footer class="footer-banner">
+      <div class="footer-top">
+        <div class="footer-brand">DECARBONIZE INDIA</div>
+        <div class="footer-divider-line"></div>
+      </div>
+
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>Government Archive Intelligence</h4>
+          <p style="font-size: 13px; color: var(--sage-300); line-height: 1.6; max-width: 320px;">
+            A verified SQLite database and machine learning forecasting platform based on official Ministry of Statistics & Programme Implementation (MoSPI) publications.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Analytics</h4>
+          <ul>
+            <li><a href="#analytics-section" onclick="switchMainTab('states')">State Matrix</a></li>
+            <li><a href="#analytics-section" onclick="switchMainTab('transition')">Clean Power</a></li>
+            <li><a href="#analytics-section" onclick="switchMainTab('overview')">Primary Mix</a></li>
+            <li><a href="#analytics-section" onclick="switchMainTab('sectors')">Sector Demand</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Methodology</h4>
+          <ul>
+            <li><a href="#analytics-section" onclick="switchMainTab('simulation')">ML Simulation</a></li>
+            <li><a href="#analytics-section" onclick="switchMainTab('audit')">Forensic Audit</a></li>
+            <li><a href="#section-methodology">Three-Stage Process</a></li>
+            <li><a href="#analytics-section" onclick="switchMainTab('database')">SQL Catalog</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Data Sources</h4>
+          <ul>
+            <li><a href="/data/csv/sustainability_indicators.csv" download>Sustainability CSV</a></li>
+            <li><a href="/data/csv/electricity_generation_utilities.csv" download>Generation CSV</a></li>
+            <li><a href="/data/csv/renewable_installed_capacity_statewise.csv" download>Renewables CSV</a></li>
+            <li><a href="/data/database_metadata.json" download>Schema JSON</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Official MoSPI Energy Statistics India 2026 • Strict Zero-Leakage Machine Learning Standards</div>
+        <a href="#top" class="btn-back-to-top" aria-label="Back to top">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

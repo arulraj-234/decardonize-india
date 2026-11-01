@@ -1,0 +1,5 @@
+Metric_Dimension,Model_Prediction,Official_Gov_Report,Absolute_Variance,MAPE_Error_Pct,Empirical_Accuracy_Pct,Source_Agency,Verdict
+Net Electricity Consumption (GWh),1577417.0,1619284.0,41867.0,2.59,97.41,CEA / MoSPI 33rd Edition,PASSED (<3% MAPE)
+High-Scenario Demand Bound (GWh),1584201.8,1619284.0,35082.2,2.17,97.83,CEA Peak Report,PASSED
+National Non-Fossil Generation Share (%),24.2,25.04,0.84,3.35,96.65,MoSPI / CEA Monthly,PASSED
+Installed Renewable Capacity (GW),215.0,220.1,5.1,2.32,97.68,MNRE / CEA Official,PASSED

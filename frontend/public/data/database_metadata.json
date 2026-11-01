@@ -1,0 +1,463 @@
+{
+  "availability_energy_resources": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_availability_mt",
+      "lignite_availability_mt",
+      "crude_oil_availability_mt",
+      "natural_gas_availability_bcm"
+    ],
+    "column_count": 5,
+    "row_count": 10
+  },
+  "consumption_coal_industry": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "electricity_power_mt",
+      "steel_and_washery_mt",
+      "cement_mt",
+      "paper_mt",
+      "textile_mt",
+      "sponge_iron_mt",
+      "fertilizers_chemicals_mt",
+      "bricks_mt",
+      "others_import_non_coking_mt",
+      "total_coal_consumed_mt"
+    ],
+    "column_count": 11,
+    "row_count": 10
+  },
+  "consumption_electricity_sector": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "industry_gwh",
+      "agriculture_gwh",
+      "domestic_gwh",
+      "commercial_gwh",
+      "traction_railways_gwh",
+      "others_gwh",
+      "total_electricity_consumed_gwh"
+    ],
+    "column_count": 8,
+    "row_count": 11
+  },
+  "consumption_natural_gas_sector": {
+    "type": "table",
+    "columns": [
+      "sector",
+      "mmscm_2014_15",
+      "mmscm_2015_16",
+      "mmscm_2016_17",
+      "mmscm_2017_18",
+      "mmscm_2018_19",
+      "mmscm_2019_20",
+      "mmscm_2020_21",
+      "mmscm_2021_22",
+      "mmscm_2022_23",
+      "mmscm_2023_24",
+      "share_2023_24_pct"
+    ],
+    "column_count": 12,
+    "row_count": 14
+  },
+  "consumption_primary_energy_units": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_petajoules",
+      "lignite_petajoules",
+      "crude_oil_petajoules",
+      "natural_gas_petajoules",
+      "electricity_petajoules",
+      "total_consumption_petajoules"
+    ],
+    "column_count": 7,
+    "row_count": 10
+  },
+  "consumption_primary_physical": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_consumption_mt",
+      "lignite_consumption_mt",
+      "crude_oil_refinery_throughput_mt",
+      "natural_gas_consumption_bcm",
+      "electricity_total_consumed_gwh"
+    ],
+    "column_count": 6,
+    "row_count": 10
+  },
+  "electricity_availability": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "gross_generation_utilities_gwh",
+      "power_station_auxiliary_consumption_gwh",
+      "net_generation_utilities_gwh",
+      "purchases_non_utilities_net_imports_gwh",
+      "net_electricity_available_for_supply_gwh"
+    ],
+    "column_count": 6,
+    "row_count": 10
+  },
+  "electricity_generation_non_utilities": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "thermal_steam_gwh",
+      "thermal_diesel_gwh",
+      "thermal_gas_gwh",
+      "thermal_total_gwh",
+      "hydro_gwh",
+      "res_renewable_gwh",
+      "total_non_utilities_gwh",
+      "grand_total_all_india_gwh"
+    ],
+    "column_count": 9,
+    "row_count": 10
+  },
+  "electricity_generation_utilities": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "thermal_steam_gwh",
+      "thermal_diesel_gwh",
+      "thermal_gas_gwh",
+      "thermal_total_gwh",
+      "hydro_gwh",
+      "nuclear_gwh",
+      "res_renewable_gwh",
+      "total_gross_generation_gwh"
+    ],
+    "column_count": 9,
+    "row_count": 11
+  },
+  "foreign_trade_energy": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_gross_imports_mt",
+      "coal_exports_mt",
+      "coal_net_imports_mt",
+      "lignite_net_imports_mt",
+      "crude_oil_imports_mt",
+      "petroleum_products_imports_mt",
+      "petroleum_products_exports_mt",
+      "petroleum_products_net_imports_mt"
+    ],
+    "column_count": 9,
+    "row_count": 11
+  },
+  "installed_capacity_non_utilities": {
+    "type": "table",
+    "columns": [
+      "as_on_date",
+      "fiscal_year",
+      "thermal_steam_mw",
+      "thermal_diesel_mw",
+      "thermal_gas_mw",
+      "thermal_total_mw",
+      "large_hydro_mw",
+      "res_renewable_mw",
+      "total_non_utilities_mw",
+      "grand_total_mw"
+    ],
+    "column_count": 10,
+    "row_count": 10
+  },
+  "installed_capacity_utilities": {
+    "type": "table",
+    "columns": [
+      "as_on_date",
+      "fiscal_year",
+      "thermal_steam_mw",
+      "thermal_diesel_mw",
+      "thermal_gas_mw",
+      "thermal_total_mw",
+      "large_hydro_mw",
+      "nuclear_mw",
+      "res_renewable_mw",
+      "total_installed_capacity_mw"
+    ],
+    "column_count": 10,
+    "row_count": 10
+  },
+  "pipeline_sync_log": {
+    "type": "table",
+    "columns": [
+      "id",
+      "sync_timestamp_utc",
+      "trigger_source",
+      "source_reference",
+      "status",
+      "latest_fiscal_year",
+      "total_tables_synced",
+      "total_views_synced",
+      "details"
+    ],
+    "column_count": 9,
+    "row_count": 10
+  },
+  "production_coal_type_sector": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coking_coal_mt",
+      "non_coking_coal_mt",
+      "total_coal_by_type_mt",
+      "public_sector_mt",
+      "private_sector_mt",
+      "total_coal_by_sector_mt"
+    ],
+    "column_count": 7,
+    "row_count": 10
+  },
+  "production_petroleum_products": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "lpg_mt",
+      "petrol_motor_spirit_mt",
+      "naphtha_mt",
+      "kerosene_sko_mt",
+      "atf_mt",
+      "hsd_diesel_mt",
+      "ldo_mt",
+      "fuel_oil_mt",
+      "lubes_mt",
+      "pet_coke_mt",
+      "bitumen_mt",
+      "total_petroleum_products_mt"
+    ],
+    "column_count": 13,
+    "row_count": 11
+  },
+  "production_primary_energy_units": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_petajoules",
+      "lignite_petajoules",
+      "crude_oil_petajoules",
+      "natural_gas_petajoules",
+      "electricity_petajoules",
+      "total_primary_energy_petajoules"
+    ],
+    "column_count": 7,
+    "row_count": 11
+  },
+  "production_primary_physical": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "coal_million_tonnes",
+      "lignite_million_tonnes",
+      "crude_oil_million_tonnes",
+      "natural_gas_gross_bcm",
+      "electricity_hydro_nuclear_res_gwh"
+    ],
+    "column_count": 6,
+    "row_count": 10
+  },
+  "renewable_installed_capacity_statewise": {
+    "type": "table",
+    "columns": [
+      "s_no",
+      "state_ut",
+      "small_hydro_2023_mw",
+      "small_hydro_2024_mw",
+      "wind_2023_mw",
+      "wind_2024_mw",
+      "bio_power_2023_mw",
+      "bio_power_2024_mw",
+      "waste_to_energy_2023_mw",
+      "waste_to_energy_2024_mw",
+      "solar_2023_mw",
+      "solar_2024_mw",
+      "total_res_2023_mw",
+      "total_res_2024_mw",
+      "growth_pct"
+    ],
+    "column_count": 15,
+    "row_count": 38
+  },
+  "renewable_potential_statewise": {
+    "type": "table",
+    "columns": [
+      "state_ut",
+      "wind_power_150m_mw",
+      "small_hydro_power_mw",
+      "biomass_power_mw",
+      "cogen_bagasse_mw",
+      "solar_energy_mw",
+      "large_hydro_mw",
+      "total_potential_mw",
+      "distribution_pct"
+    ],
+    "column_count": 9,
+    "row_count": 33
+  },
+  "reserves_coal": {
+    "type": "table",
+    "columns": [
+      "state_ut",
+      "proved_2023_mt",
+      "proved_2024_mt",
+      "indicated_2023_mt",
+      "indicated_2024_mt",
+      "inferred_2023_mt",
+      "inferred_2024_mt",
+      "total_2023_mt",
+      "total_2024_mt",
+      "distribution_2023_pct",
+      "distribution_2024_pct"
+    ],
+    "column_count": 11,
+    "row_count": 16
+  },
+  "reserves_crude_oil_gas": {
+    "type": "table",
+    "columns": [
+      "region_state",
+      "crude_oil_2023_mt",
+      "crude_oil_share_2023_pct",
+      "crude_oil_2024_mt",
+      "crude_oil_share_2024_pct",
+      "natural_gas_2023_bcm",
+      "natural_gas_share_2023_pct",
+      "natural_gas_2024_bcm",
+      "natural_gas_share_2024_pct"
+    ],
+    "column_count": 9,
+    "row_count": 15
+  },
+  "reserves_lignite": {
+    "type": "table",
+    "columns": [
+      "state_ut",
+      "proved_2023_mt",
+      "proved_2024_mt",
+      "indicated_2023_mt",
+      "indicated_2024_mt",
+      "inferred_2023_mt",
+      "inferred_2024_mt",
+      "total_2023_mt",
+      "total_2024_mt",
+      "distribution_2023_pct",
+      "distribution_2024_pct"
+    ],
+    "column_count": 11,
+    "row_count": 9
+  },
+  "sqlite_sequence": {
+    "type": "table",
+    "columns": [
+      "name",
+      "seq"
+    ],
+    "column_count": 2,
+    "row_count": 1
+  },
+  "sustainability_indicators": {
+    "type": "table",
+    "columns": [
+      "fiscal_year",
+      "energy_consumption_petajoules",
+      "mid_year_population_thousands",
+      "gdp_constant_prices_rs_crore",
+      "per_capita_primary_energy_mj",
+      "energy_intensity_mj_per_rupee",
+      "tpes_mj_per_capita",
+      "tfec_mj_per_capita",
+      "electricity_kwh_per_capita"
+    ],
+    "column_count": 9,
+    "row_count": 11
+  },
+  "v_electricity_consumption_sector_shares": {
+    "type": "view",
+    "columns": [
+      "fiscal_year",
+      "industry_gwh",
+      "agriculture_gwh",
+      "domestic_gwh",
+      "commercial_gwh",
+      "traction_railways_gwh",
+      "others_gwh",
+      "total_electricity_consumed_gwh",
+      "industry_share_pct",
+      "domestic_share_pct",
+      "agriculture_share_pct",
+      "commercial_share_pct"
+    ],
+    "column_count": 12,
+    "row_count": 11
+  },
+  "v_electricity_transition": {
+    "type": "view",
+    "columns": [
+      "fiscal_year",
+      "thermal_total_gwh",
+      "hydro_gwh",
+      "nuclear_gwh",
+      "res_renewable_gwh",
+      "utilities_total_gwh",
+      "res_share_pct",
+      "non_fossil_share_pct",
+      "fossil_share_pct"
+    ],
+    "column_count": 9,
+    "row_count": 11
+  },
+  "v_primary_energy_production_mix": {
+    "type": "view",
+    "columns": [
+      "fiscal_year",
+      "coal_petajoules",
+      "lignite_petajoules",
+      "crude_oil_petajoules",
+      "natural_gas_petajoules",
+      "electricity_petajoules",
+      "total_primary_energy_petajoules",
+      "coal_share_pct",
+      "crude_oil_share_pct",
+      "natural_gas_share_pct",
+      "clean_electricity_share_pct"
+    ],
+    "column_count": 11,
+    "row_count": 11
+  },
+  "v_state_renewable_leaderboard": {
+    "type": "view",
+    "columns": [
+      "s_no",
+      "state_ut",
+      "solar_2024_mw",
+      "wind_2024_mw",
+      "small_hydro_2024_mw",
+      "bio_power_2024_mw",
+      "waste_to_energy_2024_mw",
+      "total_res_2024_mw",
+      "growth_pct"
+    ],
+    "column_count": 9,
+    "row_count": 37
+  },
+  "v_sustainability_trends": {
+    "type": "view",
+    "columns": [
+      "fiscal_year",
+      "mid_year_population_thousands",
+      "gdp_constant_prices_rs_crore",
+      "tpes_mj_per_capita",
+      "tfec_mj_per_capita",
+      "electricity_kwh_per_capita",
+      "energy_intensity_mj_per_rupee"
+    ],
+    "column_count": 7,
+    "row_count": 11
+  }
+}

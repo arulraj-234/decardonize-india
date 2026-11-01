@@ -1,0 +1,284 @@
+{
+  "total_electricity_consumed_gwh::Naive_Drift_Baseline": {
+    "model_name": "Naive_Drift_Baseline",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "Naive_Drift_Baseline",
+      "cagr": 0.04429177253519412
+    },
+    "train": {
+      "train_mae_gwh": 351062.3,
+      "train_rmse_gwh": 352872.53,
+      "train_mape_pct": 31.61,
+      "train_r2": -9.4269,
+      "train_max_error_gwh": 436008.93
+    },
+    "validation": {
+      "val_mae_gwh": 65391.17,
+      "val_rmse_gwh": 73391.95,
+      "val_mape_pct": 4.64,
+      "val_r2": -0.4116,
+      "val_max_error_gwh": 98713.44
+    },
+    "test": {
+      "test_mae_gwh": 25487.12,
+      "test_rmse_gwh": 25487.12,
+      "test_mape_pct": 1.65,
+      "test_r2": NaN,
+      "test_max_error_gwh": 25487.12
+    }
+  },
+  "total_electricity_consumed_gwh::Linear_Econometric_OLS": {
+    "model_name": "Linear_Econometric_OLS",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "Linear_Econometric_OLS",
+      "features": [
+        "time_idx",
+        "gdp_constant_prices_rs_crore"
+      ],
+      "coefficients": [
+        47169.50090720515,
+        63870.9440642469
+      ],
+      "intercept": 1117512.7142857143
+    },
+    "train": {
+      "train_mae_gwh": 6439.36,
+      "train_rmse_gwh": 7947.18,
+      "train_mape_pct": 0.59,
+      "train_r2": 0.9947,
+      "train_max_error_gwh": 12349.84
+    },
+    "validation": {
+      "val_mae_gwh": 22988.57,
+      "val_rmse_gwh": 32365.96,
+      "val_mape_pct": 1.6,
+      "val_r2": 0.7255,
+      "val_max_error_gwh": 45771.92
+    },
+    "test": {
+      "test_mae_gwh": 28441.87,
+      "test_rmse_gwh": 28441.87,
+      "test_mape_pct": 1.84,
+      "test_r2": NaN,
+      "test_max_error_gwh": 28441.87
+    }
+  },
+  "total_electricity_consumed_gwh::Ridge_Regression_alpha_1.0": {
+    "model_name": "Ridge_Regression_alpha_1.0",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "Ridge_Regression_alpha_1.0",
+      "alpha": 1.0,
+      "features": [
+        "time_idx",
+        "gdp_constant_prices_rs_crore",
+        "mid_year_population_thousands"
+      ],
+      "coefficients": [
+        30058.44057385472,
+        45530.57496248478,
+        29789.87571020995
+      ],
+      "intercept": 1117512.7142857143
+    },
+    "train": {
+      "train_mae_gwh": 9851.42,
+      "train_rmse_gwh": 11488.82,
+      "train_mape_pct": 0.86,
+      "train_r2": 0.9889,
+      "train_max_error_gwh": 22106.73
+    },
+    "validation": {
+      "val_mae_gwh": 35118.0,
+      "val_rmse_gwh": 45314.47,
+      "val_mape_pct": 2.46,
+      "val_r2": 0.4619,
+      "val_max_error_gwh": 63755.86
+    },
+    "test": {
+      "test_mae_gwh": 60003.22,
+      "test_rmse_gwh": 60003.22,
+      "test_mape_pct": 3.89,
+      "test_r2": NaN,
+      "test_max_error_gwh": 60003.22
+    }
+  },
+  "total_electricity_consumed_gwh::Lasso_Regression_alpha_50.0": {
+    "model_name": "Lasso_Regression_alpha_50.0",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "Lasso_Regression_alpha_50.0",
+      "alpha": 50.0,
+      "features": [
+        "time_idx",
+        "gdp_constant_prices_rs_crore",
+        "mid_year_population_thousands"
+      ],
+      "coefficients": [
+        53269.2514262467,
+        64008.37145469268,
+        -6271.754920969788
+      ],
+      "intercept": 1117512.7142857143
+    },
+    "train": {
+      "train_mae_gwh": 6356.14,
+      "train_rmse_gwh": 7872.26,
+      "train_mape_pct": 0.58,
+      "train_r2": 0.9948,
+      "train_max_error_gwh": 12342.56
+    },
+    "validation": {
+      "val_mae_gwh": 22748.58,
+      "val_rmse_gwh": 31834.69,
+      "val_mape_pct": 1.58,
+      "val_r2": 0.7344,
+      "val_max_error_gwh": 45018.5
+    },
+    "test": {
+      "test_mae_gwh": 1934.44,
+      "test_rmse_gwh": 1934.44,
+      "test_mape_pct": 0.13,
+      "test_r2": NaN,
+      "test_max_error_gwh": 1934.44
+    }
+  },
+  "total_electricity_consumed_gwh::Holt_Exponential_Smoothing_add": {
+    "model_name": "Holt_Exponential_Smoothing_add",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "Holt_Exponential_Smoothing_add",
+      "trend": "add",
+      "smoothing_level": 0.9999999850988388,
+      "smoothing_trend": 0.0
+    },
+    "train": {
+      "train_mae_gwh": 27748.41,
+      "train_rmse_gwh": 32997.93,
+      "train_mape_pct": 2.47,
+      "train_r2": 0.9088,
+      "train_max_error_gwh": 56703.5
+    },
+    "validation": {
+      "val_mae_gwh": 90091.75,
+      "val_rmse_gwh": 99553.58,
+      "val_mape_pct": 6.41,
+      "val_r2": -1.5973,
+      "val_max_error_gwh": 132452.01
+    },
+    "test": {
+      "test_mae_gwh": 117826.17,
+      "test_rmse_gwh": 117826.17,
+      "test_mape_pct": 7.64,
+      "test_r2": NaN,
+      "test_max_error_gwh": 117826.17
+    }
+  },
+  "total_electricity_consumed_gwh::SARIMAX_(1, 1, 0)_with_Exog_GDP": {
+    "model_name": "SARIMAX_(1, 1, 0)_with_Exog_GDP",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "SARIMAX_(1, 1, 0)_with_Exog_GDP",
+      "order": [
+        1,
+        1,
+        0
+      ],
+      "aic": 119.7857436004852,
+      "bic": 118.6140573377875
+    },
+    "train": {
+      "train_mae_gwh": 73717.81,
+      "train_rmse_gwh": 117332.43,
+      "train_mape_pct": 7.33,
+      "train_r2": -0.1528,
+      "train_max_error_gwh": 221127.75
+    },
+    "validation": {
+      "val_mae_gwh": 21495.39,
+      "val_rmse_gwh": 22490.62,
+      "val_mape_pct": 1.54,
+      "val_r2": 0.8674,
+      "val_max_error_gwh": 28111.76
+    },
+    "test": {
+      "test_mae_gwh": 6803.36,
+      "test_rmse_gwh": 6803.36,
+      "test_mape_pct": 0.44,
+      "test_r2": NaN,
+      "test_max_error_gwh": 6803.36
+    }
+  },
+  "total_electricity_consumed_gwh::RandomForest_depth_3": {
+    "model_name": "RandomForest_depth_3",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "RandomForest_depth_3",
+      "n_estimators": 50,
+      "max_depth": 3,
+      "feature_importances": {
+        "time_idx": 0.32639582089359165,
+        "gdp_constant_prices_rs_crore": 0.3641273450184263,
+        "mid_year_population_thousands": 0.3094768340879821
+      }
+    },
+    "train": {
+      "train_mae_gwh": 7722.11,
+      "train_rmse_gwh": 9687.88,
+      "train_mape_pct": 0.72,
+      "train_r2": 0.9921,
+      "train_max_error_gwh": 18346.84
+    },
+    "validation": {
+      "val_mae_gwh": 142760.38,
+      "val_rmse_gwh": 155552.02,
+      "val_mape_pct": 10.18,
+      "val_r2": -5.3409,
+      "val_max_error_gwh": 204533.38
+    },
+    "test": {
+      "test_mae_gwh": 126934.66,
+      "test_rmse_gwh": 126934.66,
+      "test_mape_pct": 8.23,
+      "test_r2": NaN,
+      "test_max_error_gwh": 126934.66
+    }
+  },
+  "total_electricity_consumed_gwh::GradientBoosting_lr_0.08": {
+    "model_name": "GradientBoosting_lr_0.08",
+    "target": "total_electricity_consumed_gwh",
+    "hyperparameters": {
+      "name": "GradientBoosting_lr_0.08",
+      "learning_rate": 0.08,
+      "max_depth": 2,
+      "feature_importances": {
+        "time_idx": 0.4239311975503306,
+        "gdp_constant_prices_rs_crore": 0.3483304160039208,
+        "mid_year_population_thousands": 0.2277383864457486
+      }
+    },
+    "train": {
+      "train_mae_gwh": 8496.63,
+      "train_rmse_gwh": 10324.77,
+      "train_mape_pct": 0.78,
+      "train_r2": 0.9911,
+      "train_max_error_gwh": 17868.64
+    },
+    "validation": {
+      "val_mae_gwh": 145406.91,
+      "val_rmse_gwh": 157984.41,
+      "val_mape_pct": 10.37,
+      "val_r2": -5.5408,
+      "val_max_error_gwh": 207179.91
+    },
+    "test": {
+      "test_mae_gwh": 130181.59,
+      "test_rmse_gwh": 130181.59,
+      "test_mape_pct": 8.44,
+      "test_r2": NaN,
+      "test_max_error_gwh": 130181.59
+    }
+  }
+}

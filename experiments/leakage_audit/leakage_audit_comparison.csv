@@ -1,0 +1,9 @@
+Paradigm,Model,Features_Used,Status,Test_MAPE(%),Reported_Accuracy(%),Predicted_GWh,Absolute_Error_GWh
+1. Lookahead Leakage (Oracle),Linear Regression + Concurrent GDP(t),GDP(t) [Ground Truth Known Concurrently],[LEAKED] Concurrent Lookahead,0.008,99.99,1542877.0,123.0
+1. Lookahead Leakage (Oracle),Lasso Regularized + Concurrent Features,"Time, GDP(t), Pop(t) [Known Concurrently]",[LEAKED] Concurrent Lookahead,0.125,99.87,1544934.0,1934.0
+2. Pure Autoregressive (Leakage-Free),"ARIMA (1, 1, 0)",Only Historical Electricity Demand (Zero Exog),[LEAK-FREE] Honest Time-Series,6.015,93.98,1450182.0,92818.0
+2. Pure Autoregressive (Leakage-Free),Holt Multiplicative Exponential Smoothing,Only Historical Electricity Demand (Zero Exog),[LEAK-FREE] Honest Time-Series,3.961,96.04,1481875.0,61125.0
+2. Pure Autoregressive (Leakage-Free),Autoregressive Lag-1 Model (AR-1),Electricity Demand at t-1,[LEAK-FREE] Honest Time-Series,1.947,98.05,1512959.0,30041.0
+3. Lagged Macroeconomic (Leakage-Free),OLS with Lagged GDP(t-1),"Time Trend, GDP(t-1) [Strictly Prior]",[LEAK-FREE] Honest Lagged Driver,5.251,94.75,1461970.0,81030.0
+3. Lagged Macroeconomic (Leakage-Free),"Ridge with Lagged Macro [GDP(t-1), Pop(t-1)]","Time, GDP(t-1), Pop(t-1) [Strictly Prior]",[LEAK-FREE] Honest Lagged Driver,5.826,94.17,1453098.0,89902.0
+4. Two-Stage Macro Projection,Two-Stage Demand Model (Projected GDP),Projected GDP(t) via 6.45% CAGR,[LEAK-FREE] Forecasted Driver,3.358,96.64,1491194.0,51806.0

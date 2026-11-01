@@ -1,0 +1,9 @@
+Target,Model,Train_MAPE(%),Val_MAPE(%),Test_MAPE(%),Val_RMSE(GWh),Test_RMSE(GWh),Test_R2
+total_electricity_consumed_gwh,"SARIMAX_(1, 1, 0)_with_Exog_GDP",7.33,1.54,0.44,22490.62,6803.36,
+total_electricity_consumed_gwh,Lasso_Regression_alpha_50.0,0.58,1.58,0.13,31834.69,1934.44,
+total_electricity_consumed_gwh,Linear_Econometric_OLS,0.59,1.6,1.84,32365.96,28441.87,
+total_electricity_consumed_gwh,Ridge_Regression_alpha_1.0,0.86,2.46,3.89,45314.47,60003.22,
+total_electricity_consumed_gwh,Naive_Drift_Baseline,31.61,4.64,1.65,73391.95,25487.12,
+total_electricity_consumed_gwh,Holt_Exponential_Smoothing_add,2.47,6.41,7.64,99553.58,117826.17,
+total_electricity_consumed_gwh,RandomForest_depth_3,0.72,10.18,8.23,155552.02,126934.66,
+total_electricity_consumed_gwh,GradientBoosting_lr_0.08,0.78,10.37,8.44,157984.41,130181.59,

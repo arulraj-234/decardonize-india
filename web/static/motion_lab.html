@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion & Animation Sandbox Lab | Decarbonize India</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pine-950: #04140d;
+      --pine-900: #071f15;
+      --pine-850: #0a271c;
+      --pine-800: #0e3325;
+      --pine-700: #144532;
+      --emerald-500: #10b981;
+      --mint-400: #34d399;
+      --amber-500: #f59e0b;
+      --cyan-400: #22d3ee;
+      --rose-500: #f43f5e;
+      --coal-color: #e11d48;
+      --gas-color: #38bdf8;
+      --oil-color: #fbbf24;
+      --clean-color: #10b981;
+      --text-primary: #ffffff;
+      --text-secondary: #b8d4c3;
+      --text-muted: #789c87;
+      --radius-pill: 9999px;
+      --radius-card: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--pine-950);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Isolated Banner */
+    .sandbox-banner {
+      background: rgba(16, 185, 129, 0.12);
+      border-bottom: 1px solid rgba(52, 211, 153, 0.25);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #a7f3d0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .sandbox-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint-400);
+      box-shadow: 0 0 8px var(--mint-400);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
+
+    .return-btn {
+      color: #ffffff;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s;
+      font-size: 12px;
+    }
+    .return-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Lab Header & Tabs */
+    .lab-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .lab-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .lab-title p {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* Prototype Switcher Tabs */
+    .prototype-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      gap: 4px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn.active {
+      background: #10b981;
+      color: #04140d;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+    .tab-btn:hover:not(.active) {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Stage Canvas Area */
+    .stage-card {
+      background: var(--pine-900);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-card);
+      position: relative;
+      overflow: hidden;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Floating HUD controls on top right of stage */
+    .stage-hud {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(4, 20, 13, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+    .fps-counter {
+      color: var(--mint-400);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+    .control-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .control-btn:hover { background: rgba(255, 255, 255, 0.25); }
+
+    /* Prototype 1: Arterial Sankey Flow */
+    #prototype-sankey {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    #sankey-canvas {
+      width: 100%;
+      height: 520px;
+      display: block;
+    }
+    .sankey-legend {
+      padding: 14px 24px;
+      background: rgba(4, 20, 13, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-secondary);
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-size: 11.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .chip-btn.active {
+      border-color: #ffffff;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Prototype 2: Decarbonization Time Machine */
+    #prototype-timemachine {
+      display: none;
+      padding: 32px 36px;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .timeline-scrubber-wrapper {
+      background: rgba(4, 20, 13, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-top: 24px;
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .timeline-year-display {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .timeline-status-tag {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mint-400);
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+    }
+    .slider-container {
+      position: relative;
+      width: 100%;
+      margin: 20px 0 10px;
+    }
+    .year-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #e11d48 0%, #f59e0b 50%, #10b981 100%);
+      outline: none;
+      cursor: pointer;
+    }
+    .year-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #10b981;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.8);
+      cursor: grab;
+      transition: transform 0.1s;
+    }
+    .year-slider::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.15);
+    }
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Dynamic Visualizer Stage in Time Machine */
+    .timemachine-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .timemachine-metric-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .metric-card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .dynamic-progress-bar {
+      height: 22px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+    .bar-segment-fossil {
+      background: linear-gradient(90deg, #e11d48, #f59e0b);
+      height: 100%;
+      transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .bar-segment-clean {
+      background: linear-gradient(90deg, #10b981, #34d399);
+      height: 100%;
+      transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+    .bar-label-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Prototype 3: Monte Carlo Fan Ribbon */
+    #prototype-montecarlo {
+      display: none;
+      flex: 1;
+      position: relative;
+      flex-direction: column;
+    }
+    #montecarlo-canvas {
+      width: 100%;
+      height: 480px;
+      display: block;
+    }
+    .montecarlo-controls {
+      padding: 16px 24px;
+      background: rgba(4, 20, 13, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .slider-field {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .slider-field input[type="range"] {
+      width: 140px;
+      accent-color: var(--emerald-500);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Isolated Sandbox Notice Banner -->
+  <header class="sandbox-banner">
+    <div class="sandbox-badge">
+      <span class="pulse-dot"></span>
+      Isolated Animation &amp; Motion Lab
+    </div>
+    <div>
+      This sandbox runs separately. Main app is safe at <a href="/" class="return-btn">Return to Live Dashboard &rarr;</a>
+    </div>
+  </header>
+
+  <main class="lab-container">
+    <div class="lab-header">
+      <div class="lab-title">
+        <h1>Motion Concept Lab</h1>
+        <p>Interactive prototypes designed for India's 2026 energy statistics dataset</p>
+      </div>
+
+      <!-- Prototype Selector Tabs -->
+      <nav class="prototype-tabs" aria-label="Prototype Navigation">
+        <button class="tab-btn active" onclick="switchPrototype('sankey')">
+          <span>⚡ 1. National Arterial Flow</span>
+        </button>
+        <button class="tab-btn" onclick="switchPrototype('timemachine')">
+          <span>⏳ 2. Decarbonization Time Machine</span>
+        </button>
+        <button class="tab-btn" onclick="switchPrototype('montecarlo')">
+          <span>🧬 3. Monte Carlo Ribbon</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Active Stage Card -->
+    <section class="stage-card" aria-label="Animation Stage">
+      <div class="stage-hud">
+        <span>Target: <span class="fps-counter">60 FPS</span></span>
+        <button class="control-btn" id="btn-pause" onclick="togglePause()">Pause</button>
+        <button class="control-btn" onclick="resetAnimation()">Reset</button>
+      </div>
+
+      <!-- PROTOTYPE 1: Arterial Sankey River -->
+      <div id="prototype-sankey">
+        <canvas id="sankey-canvas"></canvas>
+        <div class="sankey-legend">
+          <div class="filter-chips">
+            <span style="color: var(--text-muted); font-size: 11.5px; margin-right: 4px;">Isolate Fuel Current:</span>
+            <button class="chip-btn active" onclick="filterSankey('all')"><span class="chip-dot" style="background:#fff"></span> All Fuels</button>
+            <button class="chip-btn" onclick="filterSankey('coal')"><span class="chip-dot" style="background:var(--coal-color)"></span> Coal (16,800 PJ)</button>
+            <button class="chip-btn" onclick="filterSankey('oil')"><span class="chip-dot" style="background:var(--oil-color)"></span> Crude Oil (3,800 PJ)</button>
+            <button class="chip-btn" onclick="filterSankey('gas')"><span class="chip-dot" style="background:var(--gas-color)"></span> Gas (1,900 PJ)</button>
+            <button class="chip-btn" onclick="filterSankey('clean')"><span class="chip-dot" style="background:var(--clean-color)"></span> Clean &amp; Solar (1,500 PJ)</button>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">
+            Particles represent real Petajoules from MoSPI 2026 Table 5.1
+          </div>
+        </div>
+      </div>
+
+      <!-- PROTOTYPE 2: Decarbonization Time Machine -->
+      <div id="prototype-timemachine">
+        <div>
+          <div class="timemachine-grid">
+            <div class="timemachine-metric-card">
+              <div class="metric-card-title">National Power Generation Fuel Mix</div>
+              <div class="dynamic-progress-bar">
+                <div class="bar-segment-fossil" id="tm-bar-fossil" style="width: 76.5%;"></div>
+                <div class="bar-segment-clean" id="tm-bar-clean" style="width: 23.5%;"></div>
+              </div>
+              <div class="bar-label-row">
+                <span style="color: var(--coal-color);">Thermal Fossil: <span id="tm-txt-fossil">76.5%</span></span>
+                <span style="color: var(--mint-400);">Non-Fossil Clean: <span id="tm-txt-clean">23.5%</span></span>
+              </div>
+            </div>
+
+            <div class="timemachine-metric-card">
+              <div class="metric-card-title">Installed Renewable Fleet</div>
+              <div style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--mint-400);" id="tm-val-gw">
+                143.6 GW
+              </div>
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;" id="tm-txt-desc">
+                Official MoSPI FY 2024-25 benchmark. 38 states actively contributing.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-scrubber-wrapper">
+          <div class="timeline-header">
+            <div>
+              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted);">Selected Fiscal Year</div>
+              <div class="timeline-year-display" id="tm-year-display">FY 2024-25</div>
+            </div>
+            <div class="timeline-status-tag" id="tm-tag">Official MoSPI Audited</div>
+          </div>
+
+          <div class="slider-container">
+            <input type="range" min="2014" max="2030" value="2024" step="1" class="year-slider" id="tm-slider" oninput="updateTimeMachine(this.value)">
+            <div class="slider-ticks">
+              <span>2014-15</span>
+              <span>2016-17</span>
+              <span>2018-19</span>
+              <span>2020-21</span>
+              <span>2022-23</span>
+              <span style="color: var(--mint-400); font-weight: 700;">2024 (Present)</span>
+              <span>2026(F)</span>
+              <span>2028(F)</span>
+              <span style="color: #6ee7b7; font-weight: 700;">2030 (Target)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROTOTYPE 3: Monte Carlo Forecasting Ribbon -->
+      <div id="prototype-montecarlo">
+        <canvas id="montecarlo-canvas"></canvas>
+        <div class="montecarlo-controls">
+          <div class="slider-field">
+            <label for="mc-gdp">Simulated GDP Growth:</label>
+            <input type="range" id="mc-gdp" min="4.0" max="9.0" step="0.1" value="6.5" oninput="updateMonteCarlo()">
+            <span id="mc-gdp-val" style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff;">6.5%</span>
+          </div>
+          <div class="slider-field">
+            <label for="mc-paths">Trajectory Paths:</label>
+            <input type="range" id="mc-paths" min="20" max="100" step="10" value="50" oninput="updateMonteCarlo()">
+            <span id="mc-paths-val" style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff;">50</span>
+          </div>
+          <div style="margin-left: auto; font-size: 11.5px; color: var(--text-muted);">
+            Neural probability ribbon predicting demand to FY 2029-30
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let activeProto = 'sankey';
+    let isPaused = false;
+    let animId = null;
+
+    function switchPrototype(name) {
+      activeProto = name;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      document.getElementById('prototype-sankey').style.display = name === 'sankey' ? 'flex' : 'none';
+      document.getElementById('prototype-timemachine').style.display = name === 'timemachine' ? 'flex' : 'none';
+      document.getElementById('prototype-montecarlo').style.display = name === 'montecarlo' ? 'flex' : 'none';
+
+      if (name === 'sankey') initSankey();
+      if (name === 'montecarlo') initMonteCarlo();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      document.getElementById('btn-pause').innerText = isPaused ? 'Resume' : 'Pause';
+    }
+
+    function resetAnimation() {
+      if (activeProto === 'sankey') initSankey();
+      if (activeProto === 'montecarlo') initMonteCarlo();
+    }
+
+    /* -------------------------------------------------------------
+       PROTOTYPE 1: High-Performance Canvas Arterial Sankey
+       ------------------------------------------------------------- */
+    let sCanvas, sCtx, sWidth, sHeight;
+    let particles = [];
+    let activeFilter = 'all';
+
+    const sources = [
+      { id: 'coal', label: 'Coal & Lignite', yPct: 0.20, color: '#e11d48', pCount: 160 },
+      { id: 'oil', label: 'Crude Petroleum', yPct: 0.45, color: '#f59e0b', pCount: 90 },
+      { id: 'gas', label: 'Natural Gas', yPct: 0.65, color: '#38bdf8', pCount: 60 },
+      { id: 'clean', label: 'Clean Electricity (Solar/Wind/Hydro)', yPct: 0.85, color: '#10b981', pCount: 120 }
+    ];
+
+    const midStations = [
+      { id: 'thermal', label: 'Thermal Utilities (76.5%)', yPct: 0.30, color: '#f43f5e' },
+      { id: 'refineries', label: 'Refining & Processing', yPct: 0.50, color: '#fbbf24' },
+      { id: 'clean_gen', label: 'Renewable Power (23.5%)', yPct: 0.80, color: '#34d399' }
+    ];
+
+    const sinks = [
+      { id: 'ind', label: 'Heavy Industry & Steel', yPct: 0.20, color: '#cbd5e1' },
+      { id: 'agri', label: 'Agriculture & Irrigation', yPct: 0.45, color: '#86efac' },
+      { id: 'dom', label: 'Domestic & Residential', yPct: 0.70, color: '#67e8f9' },
+      { id: 'com', label: 'Commercial & Railways', yPct: 0.90, color: '#fde047' }
+    ];
+
+    function filterSankey(fuel) {
+      activeFilter = fuel;
+      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function initSankey() {
+      sCanvas = document.getElementById('sankey-canvas');
+      sCtx = sCanvas.getContext('2d');
+      resizeSankey();
+      particles = [];
+
+      sources.forEach(src => {
+        for (let i = 0; i < src.pCount; i++) {
+          particles.push(createParticle(src));
+        }
+      });
+      if (animId) cancelAnimationFrame(animId);
+      animateSankey();
+    }
+
+    function resizeSankey() {
+      if (!sCanvas) return;
+      const rect = sCanvas.parentElement.getBoundingClientRect();
+      sWidth = sCanvas.width = rect.width;
+      sHeight = sCanvas.height = 520;
+    }
+    window.addEventListener('resize', resizeSankey);
+
+    function createParticle(src) {
+      const mid = midStations[Math.floor(Math.random() * midStations.length)];
+      const snk = sinks[Math.floor(Math.random() * sinks.length)];
+      return {
+        src,
+        mid,
+        snk,
+        t: Math.random(),
+        speed: 0.002 + Math.random() * 0.004,
+        size: 1.5 + Math.random() * 2.2,
+        alpha: 0.4 + Math.random() * 0.6
+      };
+    }
+
+    function animateSankey() {
+      if (activeProto !== 'sankey') return;
+      if (!isPaused) {
+        sCtx.fillStyle = 'rgba(7, 31, 21, 0.25)';
+        sCtx.fillRect(0, 0, sWidth, sHeight);
+
+        // Draw Column Boundaries
+        const col1 = 180;
+        const col2 = sWidth * 0.50;
+        const col3 = sWidth - 190;
+
+        // Draw Nodes
+        sCtx.font = '600 11px Inter';
+        drawNodes(sources, col1, 'right');
+        drawNodes(midStations, col2, 'center');
+        drawNodes(sinks, col3, 'left');
+
+        // Update & Render Particles
+        particles.forEach(p => {
+          if (activeFilter !== 'all' && p.src.id !== activeFilter) return;
+
+          p.t += p.speed;
+          if (p.t > 1) p.t = 0;
+
+          // 2-Stage Bezier Curve: Col1 -> Col2 -> Col3
+          let x, y;
+          if (p.t < 0.5) {
+            const subT = p.t * 2;
+            const x0 = col1, y0 = p.src.yPct * sHeight;
+            const x1 = col2, y1 = p.mid.yPct * sHeight;
+            const cx = (x0 + x1) / 2;
+            x = Math.pow(1 - subT, 2) * x0 + 2 * (1 - subT) * subT * cx + Math.pow(subT, 2) * x1;
+            y = Math.pow(1 - subT, 2) * y0 + 2 * (1 - subT) * subT * ((y0 + y1) / 2) + Math.pow(subT, 2) * y1;
+          } else {
+            const subT = (p.t - 0.5) * 2;
+            const x0 = col2, y0 = p.mid.yPct * sHeight;
+            const x1 = col3, y1 = p.snk.yPct * sHeight;
+            const cx = (x0 + x1) / 2;
+            x = Math.pow(1 - subT, 2) * x0 + 2 * (1 - subT) * subT * cx + Math.pow(subT, 2) * x1;
+            y = Math.pow(1 - subT, 2) * y0 + 2 * (1 - subT) * subT * ((y0 + y1) / 2) + Math.pow(subT, 2) * y1;
+          }
+
+          sCtx.beginPath();
+          sCtx.arc(x, y, p.size, 0, Math.PI * 2);
+          sCtx.fillStyle = p.src.color;
+          sCtx.globalAlpha = p.alpha;
+          sCtx.shadowColor = p.src.color;
+          sCtx.shadowBlur = 8;
+          sCtx.fill();
+          sCtx.shadowBlur = 0;
+          sCtx.globalAlpha = 1;
+        });
+      }
+      animId = requestAnimationFrame(animateSankey);
+    }
+
+    function drawNodes(items, x, align) {
+      items.forEach(item => {
+        const y = item.yPct * sHeight;
+        sCtx.beginPath();
+        sCtx.arc(x, y, 6, 0, Math.PI * 2);
+        sCtx.fillStyle = item.color;
+        sCtx.fill();
+
+        sCtx.fillStyle = '#ffffff';
+        sCtx.textAlign = align;
+        const offsetX = align === 'right' ? -14 : (align === 'left' ? 14 : 0);
+        const offsetY = align === 'center' ? -14 : 4;
+        sCtx.fillText(item.label, x + offsetX, y + offsetY);
+      });
+    }
+
+    /* -------------------------------------------------------------
+       PROTOTYPE 2: Decarbonization Time Machine Logic
+       ------------------------------------------------------------- */
+    const timeMachineData = {
+      2014: { fossil: 84.1, clean: 15.9, gw: '35.8 GW', desc: 'Pre-Paris agreement baseline. Solar accounted for under 4 GW.' },
+      2016: { fossil: 82.5, clean: 17.5, gw: '57.2 GW', desc: 'National Solar Mission accelerates utility tenders.' },
+      2018: { fossil: 80.2, clean: 19.8, gw: '78.3 GW', desc: 'Wind and solar tariff parity achieved below grid coal prices.' },
+      2020: { fossil: 78.9, clean: 21.1, gw: '94.1 GW', desc: 'Pandemic dip accelerates renewable preference in merit-order dispatch.' },
+      2022: { fossil: 77.8, clean: 22.2, gw: '119.5 GW', desc: 'Record solar park installations across Rajasthan and Karnataka.' },
+      2024: { fossil: 74.8, clean: 25.1, gw: '220.1 GW', desc: 'Current official MoSPI 2026 audited ground truth (FY 2024-25).' },
+      2026: { fossil: 70.8, clean: 29.2, gw: '215.0 GW', desc: 'Econometric projection: 50 GW annual renewable tender cadence met.' },
+      2028: { fossil: 62.4, clean: 37.6, gw: '320.0 GW', desc: 'Battery energy storage system (BESS) round-the-clock green dispatch.' },
+      2030: { fossil: 50.0, clean: 50.0, gw: '500.0 GW', desc: 'India 2030 Panchamrit pledge: 50% non-fossil capacity milestone achieved.' }
+    };
+
+    function updateTimeMachine(val) {
+      val = parseInt(val);
+      // Snap to nearest key
+      const keys = [2014, 2016, 2018, 2020, 2022, 2024, 2026, 2028, 2030];
+      const closest = keys.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
+      const d = timeMachineData[closest];
+
+      const yearLabel = closest <= 2024 ? `FY ${closest-1}-${String(closest).slice(2)}` : `FY ${closest-1}-${String(closest).slice(2)} (Projected)`;
+      document.getElementById('tm-year-display').innerText = yearLabel;
+      document.getElementById('tm-tag').innerText = closest <= 2024 ? 'Official MoSPI Audited' : 'Predictive Scenario Model';
+      document.getElementById('tm-tag').style.color = closest <= 2024 ? '#34d399' : '#38bdf8';
+
+      document.getElementById('tm-bar-fossil').style.width = d.fossil + '%';
+      document.getElementById('tm-bar-clean').style.width = d.clean + '%';
+      document.getElementById('tm-txt-fossil').innerText = d.fossil + '%';
+      document.getElementById('tm-txt-clean').innerText = d.clean + '%';
+      document.getElementById('tm-val-gw').innerText = d.gw;
+      document.getElementById('tm-txt-desc').innerText = d.desc;
+    }
+
+    /* -------------------------------------------------------------
+       PROTOTYPE 3: Monte Carlo Neural Ribbon
+       ------------------------------------------------------------- */
+    let mCanvas, mCtx, mWidth, mHeight;
+    let mcAnimId;
+
+    function initMonteCarlo() {
+      mCanvas = document.getElementById('montecarlo-canvas');
+      mCtx = mCanvas.getContext('2d');
+      const rect = mCanvas.parentElement.getBoundingClientRect();
+      mWidth = mCanvas.width = rect.width;
+      mHeight = mCanvas.height = 480;
+      renderMonteCarlo();
+    }
+
+    function updateMonteCarlo() {
+      const gdp = document.getElementById('mc-gdp').value;
+      const paths = document.getElementById('mc-paths').value;
+      document.getElementById('mc-gdp-val').innerText = gdp + '%';
+      document.getElementById('mc-paths-val').innerText = paths;
+      renderMonteCarlo();
+    }
+
+    function renderMonteCarlo() {
+      if (!mCtx) return;
+      mCtx.fillStyle = '#071f15';
+      mCtx.fillRect(0, 0, mWidth, mHeight);
+
+      const gdp = parseFloat(document.getElementById('mc-gdp').value);
+      const numPaths = parseInt(document.getElementById('mc-paths').value);
+
+      const startX = 80;
+      const startY = mHeight * 0.70; // 1,543,000 GWh baseline
+      const endX = mWidth - 80;
+
+      // Draw Grid & Axes
+      mCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      mCtx.lineWidth = 1;
+      for (let y = 100; y < mHeight - 40; y += 70) {
+        mCtx.beginPath();
+        mCtx.moveTo(startX, y);
+        mCtx.lineTo(endX, y);
+        mCtx.stroke();
+      }
+
+      // Draw historical curve (2014 to 2024)
+      mCtx.strokeStyle = '#34d399';
+      mCtx.lineWidth = 3;
+      mCtx.beginPath();
+      mCtx.moveTo(startX, startY + 80);
+      mCtx.lineTo(startX + (endX - startX) * 0.35, startY);
+      mCtx.stroke();
+
+      // Monte Carlo simulated fans
+      const slope = (gdp / 6.5) * 1.8;
+      for (let i = 0; i < numPaths; i++) {
+        const jitter = (Math.random() - 0.5) * 80;
+        const targetY = startY - (160 * slope) + jitter;
+
+        mCtx.beginPath();
+        mCtx.moveTo(startX + (endX - startX) * 0.35, startY);
+        mCtx.bezierCurveTo(
+          startX + (endX - startX) * 0.60, startY - 40 + (jitter * 0.4),
+          startX + (endX - startX) * 0.80, targetY + (jitter * 0.3),
+          endX, targetY
+        );
+        mCtx.strokeStyle = `rgba(52, 211, 153, ${0.15 + (Math.random() * 0.25)})`;
+        mCtx.lineWidth = 1.2;
+        mCtx.stroke();
+      }
+
+      // Draw Median P50
+      mCtx.strokeStyle = '#ffffff';
+      mCtx.lineWidth = 3;
+      mCtx.beginPath();
+      mCtx.moveTo(startX + (endX - startX) * 0.35, startY);
+      mCtx.lineTo(endX, startY - (160 * slope));
+      mCtx.stroke();
+
+      // Labels
+      mCtx.fillStyle = '#ffffff';
+      mCtx.font = '600 12px Inter';
+      mCtx.fillText('FY 2024 (1,543,000 GWh)', startX + (endX - startX) * 0.35 - 30, startY + 25);
+      mCtx.fillStyle = '#34d399';
+      mCtx.fillText(`FY 2030 Median: ${(1543 * Math.pow(1 + gdp/100, 6)).toFixed(0)} TWh`, endX - 180, startY - (160 * slope) - 15);
+    }
+
+    // Start on load
+    window.addEventListener('load', () => {
+      initSankey();
+    });
+  </script>
+</body>
+</html>

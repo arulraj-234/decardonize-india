@@ -42,7 +42,7 @@
       "total_electricity_consumed_gwh"
     ],
     "column_count": 8,
-    "row_count": 10
+    "row_count": 11
   },
   "consumption_natural_gas_sector": {
     "type": "table",
@@ -133,7 +133,7 @@
       "total_gross_generation_gwh"
     ],
     "column_count": 9,
-    "row_count": 10
+    "row_count": 11
   },
   "foreign_trade_energy": {
     "type": "table",
@@ -185,6 +185,22 @@
     "column_count": 10,
     "row_count": 10
   },
+  "pipeline_sync_log": {
+    "type": "table",
+    "columns": [
+      "id",
+      "sync_timestamp_utc",
+      "trigger_source",
+      "source_reference",
+      "status",
+      "latest_fiscal_year",
+      "total_tables_synced",
+      "total_views_synced",
+      "details"
+    ],
+    "column_count": 9,
+    "row_count": 10
+  },
   "production_coal_type_sector": {
     "type": "table",
     "columns": [
@@ -231,7 +247,7 @@
       "total_primary_energy_petajoules"
     ],
     "column_count": 7,
-    "row_count": 10
+    "row_count": 11
   },
   "production_primary_physical": {
     "type": "table",
@@ -336,6 +352,15 @@
     "column_count": 11,
     "row_count": 9
   },
+  "sqlite_sequence": {
+    "type": "table",
+    "columns": [
+      "name",
+      "seq"
+    ],
+    "column_count": 2,
+    "row_count": 1
+  },
   "sustainability_indicators": {
     "type": "table",
     "columns": [
@@ -350,7 +375,7 @@
       "electricity_kwh_per_capita"
     ],
     "column_count": 9,
-    "row_count": 10
+    "row_count": 11
   },
   "v_electricity_consumption_sector_shares": {
     "type": "view",
@@ -369,7 +394,7 @@
       "commercial_share_pct"
     ],
     "column_count": 12,
-    "row_count": 10
+    "row_count": 11
   },
   "v_electricity_transition": {
     "type": "view",
@@ -385,7 +410,7 @@
       "fossil_share_pct"
     ],
     "column_count": 9,
-    "row_count": 10
+    "row_count": 11
   },
   "v_primary_energy_production_mix": {
     "type": "view",
@@ -403,7 +428,7 @@
       "clean_electricity_share_pct"
     ],
     "column_count": 11,
-    "row_count": 10
+    "row_count": 11
   },
   "v_state_renewable_leaderboard": {
     "type": "view",
@@ -433,6 +458,6 @@
       "energy_intensity_mj_per_rupee"
     ],
     "column_count": 7,
-    "row_count": 10
+    "row_count": 11
   }
 }
