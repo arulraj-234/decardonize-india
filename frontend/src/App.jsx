@@ -41,12 +41,24 @@ export default function App() {
     // Automated periodic polling: Checks for new government publications and DB updates every 45 seconds
     const interval = setInterval(loadPipelineData, 45000);
 
-    const handleHash = () => {
+    const scrollToHash = () => {
       const h = window.location.hash.replace('#tab-', '').replace('#', '');
-      const valid = ['states', 'simulation', 'transition', 'overview', 'sectors', 'audit', 'database'];
-      if (valid.includes(h)) {
+      if (h === 'impact' || h === 'section-impact') {
+        const el = document.getElementById('section-impact');
+        if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+      } else if (['states', 'simulation', 'transition', 'overview', 'sectors', 'audit', 'database'].includes(h)) {
         setActiveTab(h);
+        setTimeout(() => {
+          const ws = document.getElementById('analytics-section');
+          if (ws) ws.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }, 120);
       }
+    };
+
+    scrollToHash();
+
+    const handleHash = () => {
+      scrollToHash();
     };
 
     window.addEventListener('hashchange', handleHash);

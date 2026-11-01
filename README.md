@@ -7,17 +7,19 @@
 [![Validation](https://img.shields.io/badge/out--of--sample%20accuracy-97.41%25-brightgreen.svg)](docs/material_of_proof_pipeline_and_ml.md)
 [![Data Audit](https://img.shields.io/badge/data%20leakage-zero%20lookahead%20guarantee-success.svg)](experiments/leakage_audit/leakage_audit_report.md)
 
-An end-to-end data engineering, econometrics, and machine learning analytics platform built from official Government of India publications: **"Energy Statistics India 2025" (33rd Edition)**, published by the Ministry of Statistics and Programme Implementation (MoSPI), corroborated with ground-truth reports from the Central Electricity Authority (CEA) and Ministry of New and Renewable Energy (MNRE).
+An end-to-end data engineering, econometrics, and machine learning analytics platform built from official Government of India publications: **"Energy Statistics India 2026" (34th Edition)** and **"Energy Statistics India 2025"**, published by the Ministry of Statistics and Programme Implementation (MoSPI) covering fiscal years up to FY 2024-25, corroborated with ground-truth reports from the Central Electricity Authority (CEA) and Ministry of New and Renewable Energy (MNRE).
 
 ---
 
-## 📸 Visual Dashboard & Platform Gallery
+## Visual Dashboard & Platform Gallery
 
 The platform features a modern full-stack web decision support interface with live animated KPI counters, state-level renewable rankings, clean energy transition trajectories, and a real-time econometric policy simulator with zero hardcoding.
 
+![National Clean Energy Platform Hero](docs/screenshots/dashboard_hero.png)
+
 | Executive KPI & Benchmark Overview | State-Wise Renewable Energy Matrix |
 | :---: | :---: |
-| ![Dashboard Hero](docs/screenshots/dashboard_hero.png) | ![State Renewable Leaderboard](docs/screenshots/state_renewable_leaderboard.png) |
+| ![Executive Impact Indicators](docs/screenshots/impact_indicators.png) | ![State Renewable Leaderboard](docs/screenshots/state_renewable_leaderboard.png) |
 | *Live dynamic counters, primary energy supply, and national clean energy indicators.* | *Capacity rankings, state leaderboard, and fuel mix across 38 States and Union Territories.* |
 
 | Live Machine Learning Policy Simulator | Forensic Data Leakage Audit |
@@ -32,7 +34,7 @@ The platform features a modern full-stack web decision support interface with li
 
 ---
 
-## 🌟 Executive Summary & Key Highlights
+## Executive Summary & Key Highlights
 
 1. **Official Government Ground Truth**: Ingests, parses, and normalizes 193 pages of statistical tables from the official MoSPI publication into a relational SQLite schema (`data/energy_india.db`) containing **24 relational tables** and **5 analytical SQL views**.
 2. **Automated ACID Data Pipeline**: Rebuilds the entire relational database, recalculates analytical views, and audits execution status in **5.95 seconds** via `src/pipeline_updater.py` with ACID-compliant logging (`pipeline_sync_log`).
@@ -48,7 +50,7 @@ The platform features a modern full-stack web decision support interface with li
 
 ---
 
-## 🏗️ System Architecture & Data Flow
+## System Architecture & Data Flow
 
 The project is structured around three decoupled, production-grade layers:
 
@@ -100,7 +102,7 @@ flowchart TD
 
 ---
 
-## 📁 Repository Directory Structure
+## Repository Directory Structure
 
 ```
 ml_project/
@@ -134,6 +136,7 @@ ml_project/
 │   ├── material_of_proof_pipeline_and_ml.md # Empirical validation & audit proof
 │   └── screenshots/                      # High-resolution platform captures & diagnostic plots
 │       ├── dashboard_hero.png
+│       ├── impact_indicators.png
 │       ├── state_renewable_leaderboard.png
 │       ├── ml_policy_forecaster.png
 │       ├── clean_power_transition.png
@@ -203,7 +206,7 @@ ml_project/
 
 ---
 
-## 🗄️ Relational Database Architecture
+## Relational Database Architecture
 
 The SQLite database (`data/energy_india.db`) stores 10-year historical trajectories, state-wise breakdowns, and socio-economic indicators across 24 relational tables.
 
@@ -267,7 +270,7 @@ The database includes 5 compiled SQL views providing high-performance query aggr
 
 ---
 
-## 🔬 Machine Learning Demand Forecasting Framework
+## Machine Learning Demand Forecasting Framework
 
 ### 1. Mathematical Formulation
 
@@ -291,9 +294,9 @@ Models were trained under a strict chronological split: **Training (FY 2014–15
 
 | Rank | Model Architecture | Train MAPE (%) | Val MAPE (%) | Test MAPE (%) | Val RMSE (GWh) | Test RMSE (GWh) | Test Accuracy ($100 - \text{MAPE}$) |
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| 🥇 | **SARIMAX (2, 1, 0) + Constant Trend** | 7.33% | 1.54% | **0.39%** | 22,490.6 | **6,032.0** | **99.61%** |
-| 🥈 | **Lasso Regression ($\alpha=50.0$)** | 0.58% | 1.58% | **0.13%** | 31,834.7 | **1,934.4** | **99.87%** |
-| 🥉 | **Linear Econometric OLS** | 0.59% | 1.60% | **1.84%** | 32,366.0 | **28,441.9** | **98.16%** |
+| 1 | **SARIMAX (2, 1, 0) + Constant Trend** | 7.33% | 1.54% | **0.39%** | 22,490.6 | **6,032.0** | **99.61%** |
+| 2 | **Lasso Regression ($\alpha=50.0$)** | 0.58% | 1.58% | **0.13%** | 31,834.7 | **1,934.4** | **99.87%** |
+| 3 | **Linear Econometric OLS** | 0.59% | 1.60% | **1.84%** | 32,366.0 | **28,441.9** | **98.16%** |
 | 4 | **Ridge Regression ($\alpha=0.000105$)** | 0.86% | 2.46% | **0.99%** | 45,314.5 | **15,501.0** | **99.01%** |
 | 5 | **Naive Drift Baseline** | 31.61% | 4.64% | **1.65%** | 73,392.0 | **25,487.1** | **98.35%** |
 | 6 | **Holt Multiplicative Exponential Smoothing** | 2.47% | 2.14% | **3.96%** | 35,420.0 | **61,125.0** | **96.04%** |
@@ -309,7 +312,7 @@ Models were trained under a strict chronological split: **Training (FY 2014–15
 
 ---
 
-## ⚙️ Hyperparameter Optimization & Fine-Tuning Study
+## Hyperparameter Optimization & Fine-Tuning Study
 
 An exhaustive grid search was executed across model parameter spaces to maximize generalization accuracy and eliminate overfitting:
 
@@ -326,7 +329,7 @@ An exhaustive grid search was executed across model parameter spaces to maximize
 
 ---
 
-## 🔍 Forensic Data Leakage Audit
+## Forensic Data Leakage Audit
 
 ### The "Oracle" Lookahead Trap
 
@@ -334,13 +337,13 @@ In empirical macro-forecasting, naive models often report suspiciously high accu
 
 ```mermaid
 flowchart LR
-    subgraph Leaked_Contemporaneous ["❌ Contemporaneous Lookahead (Oracle Cheat)"]
+    subgraph Leaked_Contemporaneous ["Contemporaneous Lookahead (Oracle Cheat)"]
         direction TB
         L1["Concurrent GDP(t)<br/>Known Only AFTER Year Ends"] --> L2["Predict Electricity Demand(t)"]
         L2 --> L3["Reported Accuracy: 99.99%<br/>Fails Completely in Real Deployment"]
     end
 
-    subgraph Honest_Leak_Free ["✅ Honest Leak-Free Forecasting (Realistic)"]
+    subgraph Honest_Leak_Free ["Honest Leak-Free Forecasting (Realistic)"]
         direction TB
         H1["Strictly Prior Data:<br/>Demand(t-1), GDP(t-1), Population(t-1)"] --> H2["Two-Stage Projected GDP(t)<br/>(CAGR: 6.45%)"]
         H2 --> H3["Predict Electricity Demand(t)"]
@@ -366,7 +369,7 @@ flowchart LR
 
 ---
 
-## 🎯 Empirical Out-of-Sample Validation: FY 2024–25 Ground Truth
+## Empirical Out-of-Sample Validation: FY 2024-25 Ground Truth
 
 To prove that the leak-free model generalizes to future unseen data, the model was tested against official figures published by the **Central Electricity Authority (CEA)** and **MoSPI 33rd Edition** for **FY 2024–25**.
 
@@ -382,7 +385,7 @@ To prove that the leak-free model generalizes to future unseen data, the model w
 
 ---
 
-## 🔮 2025–2030 Medium-Term Scenario Projections
+## 2025-2030 Medium-Term Scenario Projections
 
 The platform forecasts national electricity demand across three macroeconomic policy pathways through FY 2029–30:
 
@@ -406,7 +409,7 @@ The platform forecasts national electricity demand across three macroeconomic po
 
 ---
 
-## ⚡ Quick Start & CLI Execution Guide
+## Quick Start & CLI Execution Guide
 
 ### 1. Environment Setup
 
@@ -455,7 +458,7 @@ Open your browser at **`http://127.0.0.1:8000`** to access the interactive dashb
 
 ---
 
-## 🌐 REST API Specifications
+## REST API Specifications
 
 The FastAPI backend exposes interactive endpoints powering the decision support dashboard:
 
@@ -471,7 +474,7 @@ The FastAPI backend exposes interactive endpoints powering the decision support 
 
 ---
 
-## 📜 Citations & Official Data Sources
+## Citations & Official Data Sources
 
 1. **Ministry of Statistics and Programme Implementation (MoSPI)**: *Energy Statistics India 2025* (33rd Edition), Government of India.
 2. **Central Electricity Authority (CEA)**: *National Electricity Plan (Generation Vol. 1)* & *Monthly Generation Reports (March 2025)*, Ministry of Power.
@@ -480,6 +483,6 @@ The FastAPI backend exposes interactive endpoints powering the decision support 
 
 ---
 
-## ⚖️ License & Open Access
+## License & Open Access
 
 This project is licensed under the **MIT License**. All statistical datasets originate from publicly available Government of India publications released under Open Government Data (OGD) Platform India terms.
