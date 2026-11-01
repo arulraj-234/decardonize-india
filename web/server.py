@@ -53,7 +53,19 @@ def get_db():
 # API Endpoints
 # -----------------------------------------------------------------------------
 
+@app.get("/api")
+@app.get("/api/")
+def api_root():
+    return {
+        "title": "Decarbonize India - National Clean Energy Benchmark API",
+        "version": "1.0.0",
+        "status": "operational",
+        "documentation": "/docs"
+    }
+
+
 @app.get("/api/kpi")
+@app.get("/kpi")
 def get_kpis():
     """Returns top-level national energy indicators calculated dynamically from the pipeline."""
     conn = get_db()
@@ -134,12 +146,14 @@ def get_kpis():
 
 
 @app.get("/api/pipeline/status")
+@app.get("/pipeline/status")
 def get_pipeline_status():
     """Returns comprehensive metadata about the automated data pipeline, freshness, and provenance."""
     return get_pipeline_telemetry()
 
 
 @app.post("/api/pipeline/sync")
+@app.post("/pipeline/sync")
 def trigger_pipeline_sync(force: bool = Query(False, description="Force re-syncing from source")):
     """
     Triggers an automated synchronization cycle from the government data pipeline.
@@ -150,6 +164,7 @@ def trigger_pipeline_sync(force: bool = Query(False, description="Force re-synci
 
 
 @app.get("/api/pipeline/logs")
+@app.get("/pipeline/logs")
 def get_pipeline_logs(limit: int = Query(20, description="Max logs to return")):
     """Returns audit history of automated pipeline sync events."""
     conn = get_db()
@@ -167,6 +182,7 @@ def clean_records(df: pd.DataFrame):
 
 
 @app.get("/api/views/primary-mix")
+@app.get("/views/primary-mix")
 def get_primary_mix():
     conn = get_db()
     df = pd.read_sql("SELECT * FROM v_primary_energy_production_mix ORDER BY fiscal_year;", conn)
@@ -175,6 +191,7 @@ def get_primary_mix():
 
 
 @app.get("/api/views/electricity-transition")
+@app.get("/views/electricity-transition")
 def get_electricity_transition():
     conn = get_db()
     df = pd.read_sql("SELECT * FROM v_electricity_transition ORDER BY fiscal_year;", conn)
@@ -183,6 +200,7 @@ def get_electricity_transition():
 
 
 @app.get("/api/views/sector-consumption")
+@app.get("/views/sector-consumption")
 def get_sector_consumption():
     conn = get_db()
     df = pd.read_sql("SELECT * FROM v_electricity_consumption_sector_shares ORDER BY fiscal_year;", conn)
@@ -191,6 +209,7 @@ def get_sector_consumption():
 
 
 @app.get("/api/views/state-renewables")
+@app.get("/views/state-renewables")
 def get_state_renewables():
     conn = get_db()
     df = pd.read_sql("SELECT * FROM v_state_renewable_leaderboard;", conn)
@@ -199,6 +218,7 @@ def get_state_renewables():
 
 
 @app.get("/api/views/sustainability")
+@app.get("/views/sustainability")
 def get_sustainability():
     conn = get_db()
     df = pd.read_sql("SELECT * FROM v_sustainability_trends ORDER BY fiscal_year;", conn)
@@ -207,6 +227,7 @@ def get_sustainability():
 
 
 @app.get("/api/audit/models")
+@app.get("/audit/models")
 def get_model_benchmarks():
     """Returns comparative benchmarks from leakage audit and fine-tuning."""
     audit_csv = os.path.join(BASE_DIR, "experiments", "leakage_audit", "leakage_audit_comparison.csv")
@@ -234,12 +255,13 @@ class SimulationRequest(BaseModel):
 
 
 @app.post("/api/forecast/simulate")
+@app.post("/forecast/simulate")
 def simulate_forecast(req: SimulationRequest):
     """
     Real-time dynamic simulation of India electricity demand.
     Runs leakage-free model inference on the fly based on user sliders.
     """
-    df = load_electricity_consumption_dataset()
+    df = load_electricity_consumption_dataset(DB_PATH)
     target = 'total_electricity_consumed_gwh'
     hist_years = list(df['fiscal_year'])
     hist_demand = [float(v) for v in df[target].values]
@@ -320,6 +342,7 @@ def simulate_forecast(req: SimulationRequest):
 
 
 @app.get("/api/tables")
+@app.get("/tables")
 def get_tables_catalog():
     if os.path.exists(METADATA_PATH):
         with open(METADATA_PATH, "r", encoding="utf-8") as f:
@@ -365,6 +388,7 @@ def serve_motion_lab():
 
 
 @app.get("/")
+@app.get("/index.html")
 def serve_index():
     if os.path.exists(FRONTEND_DIST):
         dist_index = os.path.join(FRONTEND_DIST, "index.html")
