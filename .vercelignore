@@ -1,0 +1,8 @@
+*.pdf
+docs/
+experiments/
+notebooks/
+scripts/
+.venv/
+node_modules/
+frontend/node_modules/
