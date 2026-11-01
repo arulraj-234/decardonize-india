@@ -257,22 +257,33 @@ def get_pipeline_telemetry() -> Dict[str, Any]:
     except Exception:
         pass
 
-    # Database modification time
-    db_mtime = os.path.getmtime(DB_PATH) if os.path.exists(DB_PATH) else None
+    # Determine accurate sync timestamp
     now_dt = datetime.datetime.now(datetime.timezone.utc)
-    
-    if db_mtime:
-        db_dt = datetime.datetime.fromtimestamp(db_mtime, tz=datetime.timezone.utc)
-        diff_secs = (now_dt - db_dt).total_seconds()
-        if diff_secs < 120:
+    sync_dt = None
+    if last_event and last_event.get("timestamp_utc"):
+        try:
+            sync_dt = datetime.datetime.fromisoformat(last_event["timestamp_utc"])
+        except Exception:
+            pass
+
+    if sync_dt is None and os.path.exists(DB_PATH):
+        db_mtime = os.path.getmtime(DB_PATH)
+        if db_mtime:
+            sync_dt = datetime.datetime.fromtimestamp(db_mtime, tz=datetime.timezone.utc)
+
+    if sync_dt:
+        diff_secs = (now_dt - sync_dt).total_seconds()
+        if diff_secs < 120 or diff_secs < 0:
             rel_time = "Just now"
         elif diff_secs < 3600:
-            rel_time = f"{int(diff_secs // 60)} mins ago"
+            rel_time = f"{max(1, int(diff_secs // 60))} mins ago"
         elif diff_secs < 86400:
             rel_time = f"{int(diff_secs // 3600)} hours ago"
-        else:
+        elif diff_secs < 86400 * 7:
             rel_time = f"{int(diff_secs // 86400)} days ago"
-        last_updated_iso = db_dt.isoformat()
+        else:
+            rel_time = "Live"
+        last_updated_iso = sync_dt.isoformat()
     else:
         rel_time = "Live"
         last_updated_iso = now_dt.isoformat()

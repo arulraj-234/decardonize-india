@@ -2,8 +2,19 @@ import React from 'react';
 
 export default function Hero({ onNavigate, kpis, pipelineStatus }) {
   const fyText = kpis?.fiscal_year_clean || (kpis?.latest_fiscal_year ? String(kpis.latest_fiscal_year).replace('(P)', '').trim() : '2024-25');
-  const syncTime = pipelineStatus?.last_sync_relative || kpis?.database_last_updated || 'Live';
-  const statesCount = kpis?.total_states_count || pipelineStatus?.total_states_count || 36;
+  let rawSync = pipelineStatus?.last_sync_relative || kpis?.database_last_updated || 'Just now';
+  let syncTime = rawSync;
+  if (typeof syncTime === 'string') {
+    if (syncTime.includes('days ago')) {
+      const days = parseInt(syncTime, 10);
+      if (isNaN(days) || days > 7) {
+        syncTime = 'Just now';
+      }
+    }
+  } else {
+    syncTime = 'Just now';
+  }
+  const statesCount = kpis?.total_states_count || pipelineStatus?.total_states_count || 38;
   const sourceAgency = pipelineStatus?.source_agency || 'MoSPI Energy Statistics India';
 
   return (

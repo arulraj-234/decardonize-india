@@ -190,7 +190,7 @@ export default function StateExplorer() {
         <div className="clean-card-header">
           <div>
             <h2 className="clean-card-title">Top 10 Indian States by Installed Clean Energy (MW)</h2>
-            <p className="clean-card-desc">Comparative breakdown of Solar, Wind, Small Hydro, and Bio-Power capacity across leading states in 2024</p>
+            <p className="clean-card-desc">Comparative breakdown of Solar, Wind, Small Hydro, and Bio-Power capacity across leading states in FY 2024-25 (MoSPI Energy Statistics 2026)</p>
           </div>
           <span className="badge-tag-clean badge-growth">Official MoSPI Table 2.5</span>
         </div>

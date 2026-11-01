@@ -44,7 +44,10 @@ STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    except sqlite3.OperationalError:
+        conn = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -104,10 +107,24 @@ def get_kpis():
     total_res_mw = float(res_sum_row[0] or 0) if res_sum_row else 0.0
     total_states_count = int(res_sum_row[1] or 0) if res_sum_row else 0
     
-    # Database modification time for freshness
-    db_mtime = os.path.getmtime(DB_PATH) if os.path.exists(DB_PATH) else None
-    from datetime import datetime, timezone
-    last_updated_str = datetime.fromtimestamp(db_mtime, tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC") if db_mtime else "Live"
+    # Database sync timestamp from audit log for freshness
+    sync_dt = None
+    try:
+        cursor.execute("SELECT sync_timestamp_utc FROM pipeline_sync_log ORDER BY id DESC LIMIT 1;")
+        sync_row = cursor.fetchone()
+        if sync_row and sync_row[0]:
+            from datetime import datetime
+            sync_dt = datetime.fromisoformat(sync_row[0])
+    except Exception:
+        pass
+
+    if sync_dt is None and os.path.exists(DB_PATH):
+        db_mtime = os.path.getmtime(DB_PATH)
+        if db_mtime:
+            from datetime import datetime, timezone
+            sync_dt = datetime.fromtimestamp(db_mtime, tz=timezone.utc)
+
+    last_updated_str = sync_dt.strftime("%Y-%m-%d %H:%M UTC") if sync_dt else "Live"
 
     conn.close()
     
@@ -159,21 +176,31 @@ def trigger_pipeline_sync(force: bool = Query(False, description="Force re-synci
     Triggers an automated synchronization cycle from the government data pipeline.
     Re-validates tables, updates views, and logs the execution.
     """
-    res = ingest_government_release_2026()
-    return res
+    try:
+        res = ingest_government_release_2026()
+        return res
+    except (sqlite3.OperationalError, OSError) as e:
+        return {
+            "success": False,
+            "status": "read_only_serverless",
+            "message": f"Database sync disabled in read-only serverless deployment (e.g. Vercel). Run ETL locally: {str(e)}"
+        }
 
 
 @app.get("/api/pipeline/logs")
 @app.get("/pipeline/logs")
 def get_pipeline_logs(limit: int = Query(20, description="Max logs to return")):
     """Returns audit history of automated pipeline sync events."""
-    conn = get_db()
-    cursor = conn.cursor()
-    init_pipeline_tables(conn)
-    cursor.execute("SELECT * FROM pipeline_sync_log ORDER BY id DESC LIMIT ?;", (limit,))
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
-    return rows
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        init_pipeline_tables(conn)
+        cursor.execute("SELECT * FROM pipeline_sync_log ORDER BY id DESC LIMIT ?;", (limit,))
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+        return rows
+    except Exception:
+        return []
 
 
 def clean_records(df: pd.DataFrame):
